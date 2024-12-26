@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: rgb(0, 0, 0);
+            background: rgb(255, 255, 255);
+            /* Set background to white */
+            overflow: hidden;
+        }
+
+        nav {
+            background: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            padding: 1em;
+        }
+
+        .nav_indent {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            margin: 0;
+
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0;
+            cursor: pointer;
+            padding: 0.5em;
+            padding-left: 2em;
+            padding-right: 2em;
+            flex: 1;
+            position: relative;
+            background-color: transparent;
+            border-radius: 99999px;
+            transition: background 0.2s;
+            font-size: 1em;
+            text-decoration: none;
+            color: black;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        nav ul li:hover {
+            background: rgb(240, 235, 235);
+        }
+
+        .hover_zone {
+            display: block;
+            overflow: hidden;
+        }
+
+        .invisible_panel {
+            background-color: transparent;
+            max-width: 500px;
+            margin: 0;
+            padding: 0;
+            padding-top: 15px;
+            position: fixed;
+            pointer-events: none;
+            top: 45px;
+            left: 0;
+            opacity: 1;
+            transition: left 0.3s;
+        }
+
+        .invisible_panel.visible {
+            pointer-events: auto;
+        }
+
+        .panel {
+            display: flex;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 10px 18px rgba(92, 155, 163, 0.2);
+            border-style: solid;
+            border-color: rgb(212, 189, 189);
+            border-width: 1px;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            padding: 1em;
+            transition: opacity 0.3s;
+            opacity: 0;
+            position: relative;
+        }
+
+        .content {
+            z-index: 99999;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .section .half-section {
+            flex: 1;
+        }
+
+        .full-section {
+            width: 100%;
+            display: block;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 400%;
+            height: 400%;
+            pointer-events: none;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav">
+        <div class="nav_indent">
+            <h1 class="logo">Logo</h1>
+            <div class="hover_zone" id="panel_hover_zone">
+                <ul>
+                    <li id="nav_link1">Home</li>
+                    <li id="nav_link2">About</li>
+                    <li id="nav_link3">Contact</li>
+                </ul>
+                <div class="invisible_panel" id="invisible_panel">
+                    <div class="panel" id="visible_panel">
+                        <div id="overlay"></div>
+                        <div class="content">
+                            <div class="section">
+                                <div class="half-section">
+                                    <p>Section 1</p>
+                                    <ul>
+                                        <li>Item 1</li>
+                                        <li>Item 2</li>
+                                        <li>Item 3</li>
+                                    </ul>
+                                </div>
+                                <div class="half-section">
+                                    <p>Section 1</p>
+                                    <ul>
+                                        <li>Item 1</li>
+                                        <li>Item 2</li>
+                                        <li>Item 3</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="full-section">
+                                <p>Section 3</p>
+                                <ul>
+                                    <li>Item 1</li>
+                                    <li>Item 2</li>
+                                    <li>Item 3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <h1>Test Site</h1>
+
+    <script>
+        let nav_link1 = document.getElementById("nav_link1");
+        let nav_link2 = document.getElementById("nav_link2");
+        let nav_link3 = document.getElementById("nav_link3");
+
+        let panel_hover_zone = document.getElementById("panel_hover_zone");
+        let invisible_panel = document.getElementById("invisible_panel");
+        let visible_panel = document.getElementById("visible_panel");
+
+        invisible_panel.style.left = `${(nav_link1.getBoundingClientRect().left + (0.5 * nav_link1.getBoundingClientRect().width)) - (0.5 * invisible_panel.getBoundingClientRect().width)}px`;
+        let hovering_over = false;
+
+        nav_link1.addEventListener('mouseover', function () {
+            invisible_panel.style.left = `${(nav_link1.getBoundingClientRect().left + (0.5 * nav_link1.getBoundingClientRect().width)) - (0.5 * invisible_panel.getBoundingClientRect().width)}px`;
+        });
+
+        nav_link2.addEventListener('mouseover', function () {
+            invisible_panel.style.left = `${(nav_link2.getBoundingClientRect().left + (0.5 * nav_link2.getBoundingClientRect().width)) - (0.5 * invisible_panel.getBoundingClientRect().width)}px`;
+        });
+
+        nav_link3.addEventListener('mouseover', function () {
+            invisible_panel.style.left = `${(nav_link3.getBoundingClientRect().left + (0.5 * nav_link3.getBoundingClientRect().width)) - (0.5 * invisible_panel.getBoundingClientRect().width)}px`;
+        });
+
+        panel_hover_zone.addEventListener('mouseover', function () {
+            visible_panel.style.opacity = 1;
+            invisible_panel.classList.add("visible");
+        });
+
+        panel_hover_zone.addEventListener('mouseout', function () {
+            visible_panel.style.opacity = 0;
+            invisible_panel.classList.remove("visible");
+        });
+    </script>
+</body>
+
+</html>
